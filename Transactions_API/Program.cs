@@ -22,6 +22,7 @@ namespace Transactions_API
             builder.Services.AddScoped<IDbService, DbService>();
             builder.Services.AddScoped<IFileManagerService, FIleManagerService>();
 
+            //Api key = 1d23th56hj33
             builder.Services.AddAuthentication(ApiKeyDefaults.AuthenticationScheme)
                 .AddApiKeyInHeader<ApiKeyProvider>(options =>
                 {
