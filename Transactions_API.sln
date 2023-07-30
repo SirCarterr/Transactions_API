@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions_API", "Transactions_API\Transactions_API.csproj", "{8FCC2BAB-EB37-454D-AC34-B3C027B0BB61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions_DataAccess", "Transactions_DataAccess\Transactions_DataAccess.csproj", "{FEC8C67F-E39C-40AE-814B-5607D6E12DB0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FCC2BAB-EB37-454D-AC34-B3C027B0BB61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FCC2BAB-EB37-454D-AC34-B3C027B0BB61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FCC2BAB-EB37-454D-AC34-B3C027B0BB61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FCC2BAB-EB37-454D-AC34-B3C027B0BB61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEC8C67F-E39C-40AE-814B-5607D6E12DB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEC8C67F-E39C-40AE-814B-5607D6E12DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEC8C67F-E39C-40AE-814B-5607D6E12DB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEC8C67F-E39C-40AE-814B-5607D6E12DB0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {468C237B-02A9-4EB6-8598-64790F741824}
+	EndGlobalSection
+EndGlobal
