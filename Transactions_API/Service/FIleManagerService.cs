@@ -1,4 +1,5 @@
 ﻿using IronXL;
+using System.Text.RegularExpressions;
 using Transactions_API.Service.IService;
 using Transactions_DataAccess;
 
@@ -10,7 +11,7 @@ namespace Transactions_API.Service
          * Creates new workbook with worksheet 
          * Write data and save it in "File/data.transactions.cvs"
          */
-        public async Task ConvertDataToFile(List<Transaction> transactions)
+        public void ConvertDataToFile(List<Transaction> transactions)
         {
             WorkBook workBook = WorkBook.Create(ExcelFileFormat.XLSX);
             WorkSheet workSheet = workBook.CreateWorkSheet("transactions");
@@ -37,7 +38,7 @@ namespace Transactions_API.Service
          * Gets posted file and converts it to stream. 
          * Then loads the data in workbook and copy it to the list of transactions
          */
-        public async Task<List<Transaction>?> ConvertExelFile(IFormFile file)
+        public List<Transaction>? ConvertExelFile(IFormFile file)
         {
             using var ms = new MemoryStream();
             file.CopyTo(ms);
@@ -51,6 +52,10 @@ namespace Transactions_API.Service
                 while (true)
                 {
                     var cells = workSheet[$"A{i}:E{i}"].ToList();
+
+                    if (!Regex.IsMatch(cells[0].StringValue, @"\d+") && !string.IsNullOrEmpty(cells[0].StringValue))
+                        return null;
+
                     if (cells[0].IntValue == 0)
                         break;
 
@@ -73,12 +78,11 @@ namespace Transactions_API.Service
             catch
             {
                 return null;
-            }
-            finally
+            } 
+            finally 
             {
                 workBook.Close();
-                await ms.DisposeAsync();
-            }  
+            }
         }
     }
 }

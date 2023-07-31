@@ -40,7 +40,7 @@ namespace Transactions_API.Controllers
             if (Path.GetExtension(file.FileName) != ".xls" && Path.GetExtension(file.FileName) != ".xlsx")
                 return StatusCode(406);
 
-            List<Transaction>? transactions = await _fileManagerService.ConvertExelFile(file);
+            List<Transaction>? transactions = _fileManagerService.ConvertExelFile(file);
 
             if (transactions == null)
                 return BadRequest();
@@ -84,7 +84,7 @@ namespace Transactions_API.Controllers
         public async Task<IActionResult> ExportTransactions([FromQuery(Name = "status")] string? status, [FromQuery(Name = "types")] string? types)
         {
             IEnumerable<Transaction> transactions = await _dbService.ExportTransactions(status, types?.Split('-'));
-            await _fileManagerService.ConvertDataToFile(transactions.ToList());
+            _fileManagerService.ConvertDataToFile(transactions.ToList());
             FileStream fileStream = System.IO.File.OpenRead("Files/data.transactions.csv");
             return File(fileStream, "text/csv", "Transactions_data.csv");
         }
@@ -99,7 +99,7 @@ namespace Transactions_API.Controllers
         public async Task<IActionResult> ExportTransactions([FromQuery(Name = "client-name"), Required] string clientName)
         {
             IEnumerable<Transaction> transactions = await _dbService.ExportTransactions(clientName);
-            await _fileManagerService.ConvertDataToFile(transactions.ToList());
+            _fileManagerService.ConvertDataToFile(transactions.ToList());
             FileStream fileStream = System.IO.File.OpenRead("Files/data.transactions.csv");
             return File(fileStream, "text/csv", "Transactions_data.csv");
         }
