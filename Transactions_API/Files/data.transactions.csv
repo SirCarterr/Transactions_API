@@ -1,34 +1,18 @@
 ﻿TransactionId;Status;Type;ClientName;Amount
-16;Pending;Withdrawal;Nehru Franks;$51,22
 18;Pending;Refill;Jameson White;$38,76
-20;Pending;Withdrawal;Vance Lowery;$13,40
-22;Pending;Withdrawal;Plato Clay;$51,64
 23;Pending;Refill;Salvador Hardy;$60,54
-24;Pending;Withdrawal;Owen Langley;$64,23
-29;Pending;Withdrawal;Ivan Noble;$55,21
 31;Pending;Refill;Omar Hutchinson;$54,11
-33;Pending;Withdrawal;Charles Sullivan;$76,74
-34;Pending;Withdrawal;Thor Gilbert;$90,68
 42;Pending;Refill;Beck Butler;$64,97
-43;Pending;Withdrawal;Victor Quinn;$16,88
 46;Pending;Refill;Merrill Mullen;$30,56
 53;Pending;Refill;Hakeem Acevedo;$40,66
 54;Pending;Refill;Daquan Shields;$16,36
 56;Pending;Refill;Derek Todd;$52,88
 58;Pending;Refill;Oleg Willis;$97,76
-59;Pending;Withdrawal;Chancellor Stewart;$70,30
-60;Pending;Withdrawal;Gray Barry;$85,78
 62;Pending;Refill;Erasmus Oneal;$89,31
 63;Pending;Refill;Levi Shepherd;$64,08
-67;Pending;Withdrawal;Merritt Nieves;$19,69
-69;Pending;Withdrawal;James Garcia;$92,82
-70;Pending;Withdrawal;Kasimir Sandoval;$37,16
-72;Pending;Withdrawal;Cade Emerson;$47,94
 75;Pending;Refill;Salvador Hopkins;$47,86
 84;Pending;Refill;Arsenio Wilkinson;$76,06
 87;Pending;Refill;Hyatt Spence;$74,23
-88;Pending;Withdrawal;Elmo Oliver;$0,73
 90;Pending;Refill;Linus Garcia;$61,99
 91;Pending;Refill;Bruce Vaughn;$16,55
-100;Pending;Withdrawal;Mark Velazquez;$66,59
 

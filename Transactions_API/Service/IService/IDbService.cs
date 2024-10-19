@@ -6,7 +6,6 @@ namespace Transactions_API.Service.IService
     {
         public Task ImportTransaction(Transaction transaction);
         public Task<int> UpdateStatus(int id, string status);
-        public Task<IEnumerable<Transaction>> ExportTransactions(string? status, string[]? types);
-        public Task<IEnumerable<Transaction>> ExportTransactions(string clientName);
+        public Task<IEnumerable<Transaction>> ExportTransactions(string? clientName, string? status, string[]? types);
     }
 }

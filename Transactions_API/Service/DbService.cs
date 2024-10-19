@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 using Transactions_API.Service.IService;
 using Transactions_DataAccess;
 using Transactions_DataAccess.Data;
@@ -15,44 +16,46 @@ namespace Transactions_API.Service
             _db = db;
         }
 
-        public async Task<IEnumerable<Transaction>> ExportTransactions(string? status, string[]? types)
+        public async Task<IEnumerable<Transaction>> ExportTransactions(string? clientName, string? status, string[]? types)
         {
-            if (!string.IsNullOrEmpty(status) && types?.Length > 0)
-            {
-                List<SqlParameter> parameters = new List<SqlParameter>();
-                for (int j = 0; j < types.Length; j++)
-                {
-                    parameters.Add(new SqlParameter($"@p{j}", types[j]));
-                }
-                string rawSql = string.Format("SELECT * FROM Transactions WHERE Status = '{0}' AND Type IN ({1})", status, string.Join(", ", parameters));
-                List<Transaction> transactions_db = await _db.Transactions.FromSqlRaw(rawSql, parameters.ToArray()).ToListAsync();
-                return transactions_db;
-            }
-            else if (!string.IsNullOrEmpty(status))
-            {
-                List<Transaction> transactions_db = await _db.Transactions.FromSqlRaw("SELECT * FROM Transactions WHERE Status = {0}", status).ToListAsync();
-                return transactions_db;
-            }
-            else if (types?.Length > 0) {
-                List<SqlParameter> parameters = new List<SqlParameter>();
-                for (int j = 0; j < types.Length; j++)
-                {
-                    parameters.Add(new SqlParameter($"@p{j}", types[j]));
-                }
-                string rawSql = string.Format("SELECT * FROM Transactions WHERE Type IN ({0})", string.Join(", ", parameters));
-                List<Transaction> transactions_db = await _db.Transactions.FromSqlRaw(rawSql, parameters.ToArray()).ToListAsync();
-                return transactions_db;
-            }
-            else
-            {
-                List<Transaction> transactions_db = await _db.Transactions.FromSqlRaw("SELECT * FROM Transactions").ToListAsync();
-                return transactions_db;
-            }
-        }
+            StringBuilder rawSql = new("SELECT * FROM Transactions");
 
-        public async Task<IEnumerable<Transaction>> ExportTransactions(string clientName)
-        {
-            return await _db.Transactions.FromSqlRaw("SELECT * FROM Transactions WHERE ClientName = {0}", clientName).ToListAsync();
+            bool hasWhereClause = false;
+
+            if (string.IsNullOrEmpty(clientName) && string.IsNullOrEmpty(status) && types == null)
+            {
+                var transactions = await _db.Transactions.FromSqlRaw(rawSql.ToString()).ToListAsync();
+                return transactions;
+            }
+
+            rawSql.Append(" WHERE ");
+
+            if (!string.IsNullOrEmpty(clientName))
+            {
+                rawSql.Append($"ClientName = '{clientName}'");
+                hasWhereClause = true;
+            }
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                if (hasWhereClause) rawSql.Append(" AND ");
+
+                rawSql.Append($"Status = '{status}'");
+
+                hasWhereClause = true;
+            }
+
+            if (types?.Length > 0)
+            {
+                if (hasWhereClause) rawSql.Append(" AND ");
+
+                string joinedTypes = string.Join(", ", types.Select(t => $"'{t}'"));
+
+                rawSql.Append($"Type IN ({joinedTypes})");
+            }
+
+            var transactions_db = await _db.Transactions.FromSqlRaw(rawSql.ToString()).ToListAsync();
+            return transactions_db;
         }
 
         public async Task ImportTransaction(Transaction transaction)
